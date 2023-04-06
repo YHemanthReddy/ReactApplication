@@ -1,4 +1,42 @@
-h1 {
-    background-color: powderblue;
-    color: brown;
+.header {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black ;
+}
+
+img {
+    height :100px;
+    width : 100px;
+}
+
+
+.nav-item{
+    padding: 10px;
+    margin-right: 120px; 
+}
+
+.nav-item > ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav-item > ul >li {
+    padding: 10px;
+}
+
+.resContainer {
+    display: flex;
+}
+.resItemCon {
+    height : 300px;
+    width : 200px;
+    padding : 5px;
+}
+.resItemCon:hover{
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.resItemImg{
+   width : 99% 
 }

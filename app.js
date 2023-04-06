@@ -1,7 +1,16 @@
-let nested =  React.createElement("div", {
-'id' : "parentId"
-}, React.createElement("h1", {
-    'id' : "heading"
-    },"This is nested Heading"));
+import React  from "react";
+import ReactDOM  from "react-dom/client";
+import Header from "./src/components/Header"; 
+import { Body } from "./src/components/Body";
+
+const AppLayout = () =>{
+    return (
+        <div className= "appLayout">
+            <Header />
+            <Body />
+        </div>
+    )
+};
+    
 let root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(nested);
+root.render(<AppLayout />);
