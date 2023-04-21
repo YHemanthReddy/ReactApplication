@@ -1,33 +1,42 @@
 import ResItem from "./ResItem";
 import resItemList from "../utils/mockData";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useGetResturantCards from "../utils/useGetResturantCards";
+import Shimmer1 from "./Shimmer1";
+import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
-export const Body = () => {
+const Body = () => {
     
-    const [ resItemListState, setResItemListState ] = useState(resItemList);
-    //const arr = useState(resItemList);
-    //const resItemListState = arr[0];
-    //const setResItemListState = arr[1];
+    const resturantsCards = useGetResturantCards(); 
+    const {user, setUser} = useContext(UserContext);
+    const searchBtn = () => {
+        () => {
+           const filterRes = resturantsCards.filter(
+            (res) => {
+                let rating = +res.data.rating;
+                  rating > 4.1;
+                }
+           );
+           console.log(filterRes);
+           setResturantsCards(filterRes);
+        }
+    }
 
-    return (
-        <div className="body">
-            <div className="filter">
-                <button className="filterBtn" onClick={
-                    () => {
-                       const filterRes = resItemListState.filter(
-                        (res) => {
-                            let rating = +res.info.rating.aggregate_rating;
-                              rating > 4.1;
-                            }
-                       );
-                       console.log(filterRes);
-                       setResItemListState(filterRes);
-                    }
-                }>Filter</button>
+    return !resturantsCards? (<Shimmer1 />) : (
+        <div className="p-4">
+           
+            <div className="bg-orange-200">
+                <button className="rounded-md bg-black text-white p-3 m-2 shadow-sm" onClick={searchBtn}>Filter</button>
+                <input className="" value={user.name} onChange={(e) => setUser({
+                    name : e.target.value})}></input>
             </div>
-            <div className="resContainer">
-                { resItemListState.map((resturant) => (
-                    <ResItem key = {resturant.info.resId} resItemData= {resturant}/>
+            <div className="flex flex-wrap justify-center">
+                
+                { resturantsCards.map((resturant) => (
+                    <Link to = {"/resturant/" + resturant.data.id}  key = {resturant?.data?.id}>
+                        <ResItem key = {resturant?.data?.id} resItemData= {resturant}/>
+                    </Link>
                 ))}
             </div>
         </div>

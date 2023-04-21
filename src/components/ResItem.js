@@ -1,14 +1,16 @@
+import {IMAGE_URL } from "../utils/logo";
 const ResItem = (props) =>{
     const { resItemData } = props
-    const {image , name, rating, cuisine} = resItemData?.info
+    const {cloudinaryImageId , name, rating, cuisines, costForTwoString} = resItemData?.data
     return (
-       <div className="resItemCon">
-            <img className = "resItemImg" src = {image.url}/>
-            <h4 className="resItemName"> {name} </h4>
-            <h4 className= "resItemRating">{rating.aggregate_rating}</h4>
+       <div className="w-52 h-72 m-1 p-2 bg-gray-300 rounded-lg" >
+            <img className = "resItemImg" src = {IMAGE_URL + cloudinaryImageId}/>
+            <h4 className="text-lg font-bold"> {name} </h4>
+            <h4 className= "resItemRating">{rating}</h4>
             <h4 className= "resItemRating">{
-                 cuisine.map(((cui) => cui?.name)).join(", ")
+                 cuisines.map(((cui) => cui)).join(", ")
             }</h4>
+            <h4>{costForTwoString}</h4>
        </div> 
     )
 }
